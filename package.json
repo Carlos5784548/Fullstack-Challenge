@@ -1,0 +1,22 @@
+{
+  "name": "curso",
+  "version": "1.0.0",
+  "description": "El mas grande",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carlos Trod",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "pg": "^8.16.1"
+  }
+}
