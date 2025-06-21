@@ -17,6 +17,7 @@ export async function crearTarea(req, res) {
     });
     res.status(201).json(tarea);
   } catch (error) {
+    console.error('Error al crear tarea:', error);
     res.status(500).json({ error: 'Error al crear la tarea.' });
   }
 }
