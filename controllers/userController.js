@@ -1,44 +1,45 @@
-import { UserRepository } from '../models/UserRepository.js';
-import jwt from 'jsonwebtoken';
+import {
+  registrarUsuarioService,
+  loginUsuarioService,
+  validarConexionService
+} from '../service/userService.js';
 
-const userRepo = new UserRepository();
+import {
+  ERROR_USUARIO_REGISTRO,
+  ERROR_USUARIO_LOGIN,
+  ERROR_USUARIO_EXISTE,
+  ERROR_CREDENCIALES_INVALIDAS,
+}from '../constants/mensajesError.js';
 
-// Registro de usuario
+
+// Registrar un nuevo usuario
 export async function registrarUsuario(req, res) {
   const { email, password } = req.body;
   try {
-    if (await userRepo.usuarioExiste(email)) {
-      return res.status(400).json({ error: 'El usuario ya existe.' });
-    }
-    const usuario = await userRepo.crearUsuario({ email, password });
+    const usuario = await registrarUsuarioService(email, password);
     res.status(201).json(usuario);
   } catch (error) {
-    res.status(500).json({ error: 'Error al registrar usuario.' });
+    if (error.message === 'EXISTE') {
+      return res.status(400).json({ error: ERROR_USUARIO_EXISTE });
+    }
+    res.status(500).json({ error: ERROR_USUARIO_REGISTRO });
   }
 }
-
-// Login de usuario
+// Iniciar sesión de usuario
 export async function loginUsuario(req, res) {
   const { email, password } = req.body;
   try {
-    const usuario = await userRepo.login({ email, password });
-    if (!usuario) {
-      return res.status(401).json({ error: 'Credenciales incorrectas.' });
+    const result = await loginUsuarioService(email, password);
+    if (!result) {
+      return res.status(401).json({ error: ERROR_CREDENCIALES_INVALIDAS });
     }
-    // Genera token JWT
-    const token = jwt.sign(
-      { id: usuario.id, email: usuario.email },
-      process.env.JWT_SECRET || 'miSuperClaveJWT_2025!@#_segura',
-      { expiresIn: '1h' }
-    );
-    res.json({ token });
+    res.json(result);
   } catch (error) {
-    res.status(500).json({ error: 'Error al iniciar sesión.' });
+    res.status(500).json({ error: ERROR_USUARIO_LOGIN });
   }
 }
-
 // Validar conexión a la base de datos
 export async function validarConexion(req, res) {
-  const ok = await userRepo.validarConexion();
+  const ok = await validarConexionService();
   res.json({ conexion: ok });
 }
