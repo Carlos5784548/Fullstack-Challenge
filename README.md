@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🔐 Gestor de Tareas - Backend API
 
 API REST desarrollada en Node.js con Express, que permite gestionar usuarios y tareas, utilizando autenticación JWT.
@@ -31,5 +31,3 @@ API REST desarrollada en Node.js con Express, que permite gestionar usuarios y t
 - bcrypt
 
 ---
-
->>>>>>> 6eabc15 (Cambios varios)
