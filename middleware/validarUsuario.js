@@ -1,5 +1,6 @@
 import { MENSAJES_USUARIO } from '../constants/mensajesError.js';
-
+// Middleware para validar los datos del usuario
+// Este middleware valida que el email y la contraseña del usuario sean correctos
 export function validarUsuarioMiddleware(req, res, next) {
   const { email, password } = req.body;
 

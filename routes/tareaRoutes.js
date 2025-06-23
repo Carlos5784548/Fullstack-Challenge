@@ -5,7 +5,8 @@ import { validarTareaMiddleware } from '../middleware/validarTarea.js';
 
 const router = express.Router();
 
-// El orden es importante: primero autenticarToken, luego validarTareaMiddleware
+// Importamos las funciones del controlador de tareas
+// y los middlewares necesarios para autenticar al usuario y validar los datos de la tarea
 router.post('/', autenticarToken, validarTareaMiddleware, crearTarea);
 router.get('/', autenticarToken, listarTareas);
 router.put('/:id', autenticarToken, validarTareaMiddleware, editarTarea);

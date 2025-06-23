@@ -11,7 +11,7 @@ const PORT = 3000;
 // Middleware para parsear JSON
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:4200' // Cambia el puerto si tu Angular usa otro
+  origin: 'http://localhost:4200' 
 }));
 
 // Rutas principales
